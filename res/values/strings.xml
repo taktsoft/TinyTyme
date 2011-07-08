@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="todo">TODO_NO_STRING_YET</string>
     <string name="hello">Hello World, TinyTymeMain!</string>
     <string name="app_name">TinyTyme</string>
     <string name="TinyTyme">TinyTyme</string>
+    <string name="settings_title">Settings</string>
+    <string name="commit_to_tyme">Commit to Tyme</string>
 </resources>
