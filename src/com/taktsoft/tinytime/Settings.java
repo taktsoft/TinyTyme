@@ -12,6 +12,8 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+
 import com.google.zxing.integration.android.*;
 
 public class Settings extends PreferenceActivity {
@@ -64,15 +66,23 @@ public class Settings extends PreferenceActivity {
 			if(servername != null && authtoken != null){
 				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("servername", servername).commit();
 				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("authtoken", authtoken).commit();
+				startActivity(getIntent());
+				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			    alertDialog.setTitle("QR Code decrypted:");
+			    alertDialog.setMessage("Server Host: "+ servername + "\nToken: " + authtoken);
+			    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
+			    alertDialog.show();
 			}
 			
 			
 			Log.i("scan dialog res.", "RESULT IS: " + jsonResult);
+			
 			/*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		    alertDialog.setTitle("Received Input!");
 		    alertDialog.setMessage("Input was: " + jsonResult);
 		    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
 		    alertDialog.show();*/
+			
 			
 		} else {
 			Log.i("scan dialog res.", "NO RESULT");
