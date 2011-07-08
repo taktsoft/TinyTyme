@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<EditTextPreference android:title="Tyme2 Server Address" android:key="servername" android:summary="Configure the Tyme2 Server"></EditTextPreference>
+	<EditTextPreference android:key="authtoken" android:summary="Insert your Tyme2 Account Authentication Token" android:title="Authentication Token"></EditTextPreference>
+</PreferenceScreen>
