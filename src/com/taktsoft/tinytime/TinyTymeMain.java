@@ -119,7 +119,7 @@ public class TinyTymeMain extends Activity {
 	    alertDialog.show();*/
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yy-MM-dd'T'HH:mm:ssZ");
+				"yy-MM-dd'T'HH:mm:ss");
 
 		try {
 			int TIMEOUT_MILLISEC = 10000; // = 10 seconds
