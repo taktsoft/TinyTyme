@@ -210,11 +210,6 @@ public class TinyTymeMain extends Activity {
 	void examineJSONFile(String taskJson) {
 		try {
 			String x = "";
-			// InputStream is = this.getResources().openRawResource(
-			// R.raw.tasks);
-			// byte[] buffer = new byte[is.available()];
-			// while (is.read(buffer) != -1)
-			// ;
 			String jsontext = taskJson;
 			JSONArray entries = new JSONArray(jsontext);
 

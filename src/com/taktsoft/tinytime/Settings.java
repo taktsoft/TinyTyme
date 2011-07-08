@@ -31,7 +31,6 @@ public class Settings extends PreferenceActivity {
 				IntentIntegrator.initiateScan(thisInstance);
 				return true;
 			}
-        	
         });
 	}
 	
@@ -39,11 +38,6 @@ public class Settings extends PreferenceActivity {
 		Log.i("scan dialog res.", "Ive got data for you!");
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		if (scanResult != null && scanResult.getContents() != "") {
-			
-			
-			
-			
-			
 			String jsonResult = scanResult.getContents();
 			String servername = null;
 			String authtoken = null;
@@ -51,11 +45,6 @@ public class Settings extends PreferenceActivity {
 				JSONObject data = new JSONObject(jsonResult); 
 				servername = data.getString("host");
 				authtoken = data.getString("auth_token");
-				/*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			    alertDialog.setTitle("JSON Results:");
-			    alertDialog.setMessage("host: "+ data.getString("host") + ", auth: " + data.getString("auth_token"));
-			    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
-			    alertDialog.show();*/
 			} catch(Exception e) {
 				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			    alertDialog.setTitle("JSON exception");
@@ -64,26 +53,17 @@ public class Settings extends PreferenceActivity {
 			    alertDialog.show();
 			}
 			if(servername != null && authtoken != null){
+				if(servername.endsWith("/tasks")) {
+					servername = servername.replaceFirst("/tasks$", "");					
+				}
 				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("servername", servername).commit();
-				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("authtoken", authtoken).commit();
-				startActivity(getIntent());
+				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("authtoken", authtoken).commit();				
 				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			    alertDialog.setTitle("QR Code decrypted:");
 			    alertDialog.setMessage("Server Host: "+ servername + "\nToken: " + authtoken);
-			    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
-			    alertDialog.show();
+			    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { finish(); } }); 
+			    alertDialog.show(); 
 			}
-			
-			
-			Log.i("scan dialog res.", "RESULT IS: " + jsonResult);
-			
-			/*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		    alertDialog.setTitle("Received Input!");
-		    alertDialog.setMessage("Input was: " + jsonResult);
-		    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
-		    alertDialog.show();*/
-			
-			
 		} else {
 			Log.i("scan dialog res.", "NO RESULT");
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
