@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,8 +22,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,12 +47,22 @@ public class TinyTymeMain extends Activity {
 	private EditText inputTaskName;
 	private DatePicker dpDate;
 	private TimePicker tpTime;
+	private String servername = null;
+	private String auth_token = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		/*SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		Log.i("debug", sharedPrefs.getString("servername", "null"));
+		Log.i("debug", sharedPrefs.getString("authtoken", "foo"));*/
+		fetchPreferences();
+
+
 
 		tvData = (TextView) findViewById(R.id.txtData);
 		/*btnJSON = (Button) findViewById(R.id.btnJSON);
@@ -64,6 +79,7 @@ public class TinyTymeMain extends Activity {
 		btnCreate.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 
+				fetchPreferences();
 				Date createdAt = new Date();
 				createdAt.setYear(dpDate.getYear());
 				createdAt.setMonth(dpDate.getMonth());
@@ -77,9 +93,31 @@ public class TinyTymeMain extends Activity {
 
 	}
 
+	protected void fetchPreferences(){
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		servername = sharedPrefs.getString("servername", "null");
+		auth_token = sharedPrefs.getString("authtoken", "foo");
+		Log.i("debug: servername", servername);
+		Log.i("debug: authtoken", auth_token);
+		/*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+	    alertDialog.setTitle("Got Settings");
+	    alertDialog.setMessage("Settings: : " + servername + " and " + auth_token);
+	    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
+	    alertDialog.show();*/
+		
+	}
+	
 	protected void createNewTask(Date createdAt, String name) {
 		String url = new String(
-				"http://chomsky.bonn.taktsoft.com:3000/tasks.json?auth_token=VxoGQbV3pXYEGjGm13jo");
+				servername + "/tasks.json?auth_token=" + auth_token);
+		
+		/*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+	    alertDialog.setTitle("going to post");
+	    alertDialog.setMessage("TO: " + url);
+	    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
+	    alertDialog.show();*/
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"yy-MM-dd'T'HH:mm:ssZ");
 
@@ -107,6 +145,11 @@ public class TinyTymeMain extends Activity {
 
 			HttpResponse response = client.execute(request);
 			Log.i("HTTP", response.getStatusLine().toString());
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		    alertDialog.setTitle("Done");
+		    alertDialog.setMessage("Result was: " + response.getStatusLine().toString());
+		    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
+		    alertDialog.show();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -143,7 +186,7 @@ public class TinyTymeMain extends Activity {
 
 	String fetchTaskData() {
 		String url = new String(
-				"http://chomsky.bonn.taktsoft.com:3000/tasks.json?auth_token=VxoGQbV3pXYEGjGm13jo");
+				servername + "/tasks.json?auth_token=" + auth_token);
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
 		HttpResponse response;
@@ -224,16 +267,16 @@ public class TinyTymeMain extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
-		//inflater.inflate(R.xml.menu, menu);
+		inflater.inflate(R.xml.menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		/*case R.id.settings:
+		case R.id.settings:
 			startActivity(new Intent(this, Settings.class));
-			return true; */
+			return true;
 		}
 		return false;
 	}

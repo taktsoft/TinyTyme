@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import com.google.zxing.integration.android.*;
 
@@ -34,7 +35,14 @@ public class Settings extends PreferenceActivity {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		if (scanResult != null && scanResult.getContents() != "") {
 			String jsonResult = scanResult.getContents();
+			PreferenceManager.getDefaultSharedPreferences(this).edit().putString("servername", jsonResult).commit();
 			Log.i("scan dialog res.", "RESULT IS: " + jsonResult);
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		    alertDialog.setTitle("Received Input!");
+		    alertDialog.setMessage("Input was: " + jsonResult);
+		    alertDialog.setButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { return; } }); 
+		    alertDialog.show();
+			
 		} else {
 			Log.i("scan dialog res.", "NO RESULT");
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
