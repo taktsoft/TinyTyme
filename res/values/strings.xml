@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, TinyTymeMain!</string>
     <string name="app_name">TinyTyme</string>
+    <string name="TinyTyme">TinyTyme</string>
 </resources>
