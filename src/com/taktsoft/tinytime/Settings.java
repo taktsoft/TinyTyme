@@ -62,8 +62,12 @@ public class Settings extends PreferenceActivity {
 			    alertDialog.show();
 			}
 			if(servername != null && authtoken != null){
+				if(servername.endsWith("/tasks")) {
+					servername = servername.replaceFirst("/tasks$", "");					
+				}
 				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("servername", servername).commit();
 				PreferenceManager.getDefaultSharedPreferences(this).edit().putString("authtoken", authtoken).commit();
+				
 			}
 			
 			
