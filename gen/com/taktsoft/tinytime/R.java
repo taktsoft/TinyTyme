@@ -18,14 +18,14 @@ public final class R {
         public static final int icon_inapp=0x7f020001;
     }
     public static final class id {
-        public static final int commitbtn=0x7f080005;
-        public static final int editText1=0x7f080002;
+        public static final int btnCreate=0x7f080005;
+        public static final int dpDate=0x7f080003;
         public static final int imageView1=0x7f080001;
+        public static final int inputTaskName=0x7f080002;
         public static final int linearLayout1=0x7f080000;
-        public static final int linearLayout4=0x7f080003;
-        public static final int progressBar1=0x7f080004;
-        public static final int scrollView1=0x7f080006;
         public static final int settings=0x7f080007;
+        public static final int tpTime=0x7f080004;
+        public static final int txtData=0x7f080006;
     }
     public static final class layout {
         public static final int main=0x7f030000;
@@ -37,6 +37,7 @@ public final class R {
         public static final int TinyTyme=0x7f070003;
         public static final int app_name=0x7f070002;
         public static final int commit_to_tyme=0x7f070005;
+        public static final int empty=0x7f070006;
         public static final int hello=0x7f070001;
         public static final int settings_title=0x7f070004;
         public static final int todo=0x7f070000;

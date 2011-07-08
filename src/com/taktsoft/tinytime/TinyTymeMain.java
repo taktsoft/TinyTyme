@@ -20,7 +20,6 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,13 +50,13 @@ public class TinyTymeMain extends Activity {
 		setContentView(R.layout.main);
 
 		tvData = (TextView) findViewById(R.id.txtData);
-		btnJSON = (Button) findViewById(R.id.btnJSON);
+		/*btnJSON = (Button) findViewById(R.id.btnJSON);
 		btnJSON.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				String taskJson = fetchTaskData();
 				examineJSONFile(taskJson);
 			}
-		});
+		}); */
 		dpDate = (DatePicker) findViewById(R.id.dpDate);
 		tpTime = (TimePicker) findViewById(R.id.tpTime);
 		inputTaskName = (EditText) findViewById(R.id.inputTaskName);
@@ -73,7 +72,7 @@ public class TinyTymeMain extends Activity {
 				createdAt.setMinutes(tpTime.getCurrentMinute());
 
 				createNewTask(createdAt, inputTaskName.getText().toString());
-			}
+			};
 		});
 
 	}
@@ -225,16 +224,16 @@ public class TinyTymeMain extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.xml.menu, menu);
+		//inflater.inflate(R.xml.menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.setting:
+		/*case R.id.settings:
 			startActivity(new Intent(this, Settings.class));
-			return true;
+			return true; */
 		}
 		return false;
 	}
